@@ -5,7 +5,7 @@ exports.generateTemplateClassesFromXSD = exports.verbose = void 0;
  * Created by Eddy Spreeuwers at 11 march 2018
  */
 var fs = require("fs");
-var classGenerator_1 = require("./classGenerator");
+// import {ClassGenerator} from './classGenerator';
 var xml_utils_1 = require("./xml-utils");
 var TSCONFIG = "{\n                \"compilerOptions\": {\n                    \"module\": \"commonjs\",\n                    \"target\": \"es5\",\n                    \"sourceMap\": true,\n                    \"declaration\": true,\n                    \"declarationDir\": \"../../\",\n                    \"outDir\":  \"../../\"\n                },\n                \"exclude\": [\n                    \"node_modules\"\n                ]\n    }";
 var importStatements = [];
@@ -40,7 +40,7 @@ var imports = {};
 //
 // }
 function verbose() {
-    xml_utils_1.useVerboseLogModus();
+    (0, xml_utils_1.useVerboseLogModus)();
 }
 exports.verbose = verbose;
 function generateTemplateClassesFromXSD(xsdFilePath, dependencies, xmlnsName) {
@@ -51,18 +51,18 @@ function generateTemplateClassesFromXSD(xsdFilePath, dependencies, xmlnsName) {
     var xsdString = fs.readFileSync(xsdFilePath, 'utf8');
     var fileName = xsdFilePath.split("/").reverse()[0].replace(".xsd", ".ts");
     var genSrcPath = "./src/generated";
-    var generator = new classGenerator_1.ClassGenerator(imports);
-    generator.xmlnsName = xmlnsName;
-    generator.schemaName = fileName.replace(".ts", "").replace(/\W/g, '_');
-    if (!fs.existsSync(genSrcPath)) {
-        fs.mkdirSync(genSrcPath);
-        fs.writeFileSync('./src/generated/tsconfig.json', TSCONFIG, 'utf8');
-    }
-    var classFileDef = generator.generateClassFileDefinition(xsdString, 's');
+    // const generator = new ClassGenerator(imports);
+    // generator.xmlnsName = xmlnsName;
+    // generator.schemaName = fileName.replace( ".ts", "").replace(/\W/g, '_');
+    // if (!fs.existsSync(genSrcPath)) {
+    //     fs.mkdirSync(genSrcPath);
+    //     fs.writeFileSync('./src/generated/tsconfig.json', TSCONFIG, 'utf8');
+    // }
+    // const classFileDef = generator.generateClassFileDefinition(xsdString, 's');
     //add classes in order of hierarchy depth to make the compiler happy
-    var disclaimer = "/***********\ngenerated template classes for " + xsdFilePath + ' ' + new Date().toLocaleString() + "\n***********/\n\n";
-    var src = disclaimer + '\n\n\n\n' + classFileDef.write().replace(/protected\s/g, 'public ');
-    fs.writeFileSync(genSrcPath + "/" + fileName, src, 'utf8');
-    fs.writeFileSync(genSrcPath + "/index.ts", src, 'utf8');
+    // let disclaimer = "/***********\ngenerated template classes for " + xsdFilePath + ' ' + new Date().toLocaleString() + "\n***********/\n\n";
+    // let src = disclaimer + '\n\n\n\n' + classFileDef.write().replace(/protected\s/g, 'public ');
+    // fs.writeFileSync(`${genSrcPath}/${fileName}`, src, 'utf8');
+    // fs.writeFileSync(`${genSrcPath}/index.ts`, src, 'utf8');
 }
 exports.generateTemplateClassesFromXSD = generateTemplateClassesFromXSD;

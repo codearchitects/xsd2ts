@@ -2,7 +2,7 @@
  * Created by Eddy Spreeuwers at 11 march 2018
  */
 import * as fs from "fs";
-import {ClassGenerator} from './classGenerator';
+// import {ClassGenerator} from './classGenerator';
 import {useVerboseLogModus} from "./xml-utils";
 
 const TSCONFIG =
@@ -69,24 +69,24 @@ export function generateTemplateClassesFromXSD(xsdFilePath: string, dependencies
     const fileName =  xsdFilePath.split("/").reverse()[0].replace(".xsd", ".ts");
 
     const genSrcPath = "./src/generated";
-    const generator = new ClassGenerator(imports);
-    generator.xmlnsName = xmlnsName;
+    // const generator = new ClassGenerator(imports);
+    // generator.xmlnsName = xmlnsName;
 
-    generator.schemaName = fileName.replace( ".ts", "").replace(/\W/g, '_');
+    // generator.schemaName = fileName.replace( ".ts", "").replace(/\W/g, '_');
 
-    if (!fs.existsSync(genSrcPath)) {
-        fs.mkdirSync(genSrcPath);
-        fs.writeFileSync('./src/generated/tsconfig.json', TSCONFIG, 'utf8');
-    }
+    // if (!fs.existsSync(genSrcPath)) {
+    //     fs.mkdirSync(genSrcPath);
+    //     fs.writeFileSync('./src/generated/tsconfig.json', TSCONFIG, 'utf8');
+    // }
 
-    const classFileDef = generator.generateClassFileDefinition(xsdString, 's');
+    // const classFileDef = generator.generateClassFileDefinition(xsdString, 's');
 
     //add classes in order of hierarchy depth to make the compiler happy
 
-    let disclaimer = "/***********\ngenerated template classes for " + xsdFilePath + ' ' + new Date().toLocaleString() + "\n***********/\n\n";
-    let src = disclaimer + '\n\n\n\n' + classFileDef.write().replace(/protected\s/g, 'public ');
-    fs.writeFileSync(`${genSrcPath}/${fileName}`, src, 'utf8');
-    fs.writeFileSync(`${genSrcPath}/index.ts`, src, 'utf8');
+    // let disclaimer = "/***********\ngenerated template classes for " + xsdFilePath + ' ' + new Date().toLocaleString() + "\n***********/\n\n";
+    // let src = disclaimer + '\n\n\n\n' + classFileDef.write().replace(/protected\s/g, 'public ');
+    // fs.writeFileSync(`${genSrcPath}/${fileName}`, src, 'utf8');
+    // fs.writeFileSync(`${genSrcPath}/index.ts`, src, 'utf8');
 
 }
 
